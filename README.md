@@ -118,4 +118,4 @@ Email: swarajsonalkar99@gmail.com
 
 *Transforming document management into a simpler digital experience.*
 
-Make a separate static in oroject directory and then paste the html,css and javascript file
+Make a separate static in project directory and then paste the html,css and javascript file
