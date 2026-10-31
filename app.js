@@ -1,0 +1,4 @@
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function load(){let d=await(await fetch('/api/docs')).json();$('#docs').innerHTML=d.map(x=>`<div class="item row"><span style="flex:1">${esc(x.name)} · ${(x.size/1024).toFixed(1)} KB</span><a href="/api/download/${x.id}">Download ↗</a></div>`).join('')||'<p class="muted">No documents yet.</p>'}
+async function send(form,url,input,convert=false){form.onsubmit=async e=>{e.preventDefault();let fd=new FormData();fd.append('file',input.files[0]);let r=await fetch(url,{method:'POST',body:fd}),x=await r.json();if(!r.ok){alert(x.detail);return}form.reset();load();if(convert)location.href='/api/download/'+x.id}}
+send($('#up'),'/api/upload',$('#file'));send($('#cv'),'/api/convert',$('#textfile'),true);load();
